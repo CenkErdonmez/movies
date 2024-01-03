@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setMovies, deleteMovie } from "./utilities/movieSlice";
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movies);
+  useEffect(() => {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/movie/popular?api_key=f2830338ff0c8958449c6468503f8c57"
+      )
+      .then((response) => {
+        dispatch(setMovies(response.data));
+      });
+  }, []);
+  console.log(movies);
+  // const handleDelete = (id) => {
+  //   fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+  //     method: "DELETE",
+  //   })
+  //     .then((response) => {
+  //       // Handle successful deletion
+  //       console.log(response);
+  //       console.log(`Post with ID ${id} deleted successfully.`);
+  //       setData((prevData) => prevData.filter((item) => item.id !== id));
+  //       // Optionally update the UI by fetching the updated data
+  //       // or removing the item from the local state
+  //     })
+  //     .catch((error) => {
+  //       // Handle error
+  //       console.error(`Error deleting post with ID ${id}:`, error);
+  //     });
+  // };
+  return <div className='App'></div>;
 }
 
-export default App
+export default App;
