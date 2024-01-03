@@ -2,15 +2,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  setMovies,
-  openDeleteModal,
-  openAddModal,
-  openUpdateModal,
-} from "../utilities/movieSlice";
+import { setMovies, openAddModal } from "../utilities/movieSlice";
 import DeleteModal from "./DeleteModal";
 import AddMovieModal from "./AddMovieModal";
 import UpdateModal from "./UpdateProductModal";
+import ProductCard from "./ProductCard";
 
 function Movies() {
   const dispatch = useDispatch();
@@ -28,20 +24,11 @@ function Movies() {
       dispatch(setMovies(response?.data));
     });
   }, []);
-  const openDeleteModalHandler = (id, title) => {
-    setSelectedMovie({ id, title });
-    dispatch(openDeleteModal());
-  };
 
   const openAddModalHandler = () => {
     dispatch(openAddModal());
   };
 
-  const openUpdateModalHandler = (id, title) => {
-    setSelectedMovie({ id, title });
-    dispatch(openUpdateModal());
-  };
-  console.log(movies);
   return (
     <div
       className={`flex container flex-col justify-center items-center mx-auto `}
@@ -81,46 +68,13 @@ function Movies() {
       {isAddModalOpen && <AddMovieModal />}
 
       <div
-        className={`flex  flex-wrap justify-center items-center py-4 gap-6 mx-auto px-4 container ${
+        className={`grid grid-cols-12  justify-center items-center w-full gap-4 py-4 px-2 ${
           isDeleteModalOpen || isAddModalOpen || isUpdateModalOpen
             ? "blur "
             : ""
         } `}
       >
-        {movies?.movies.products?.map((movie) => (
-          <div
-            className={`flex flex-col gap-4 rounded-md p-4 bg-white shadow-md w-full md:w-80 self-start`}
-            key={movie?.id}
-          >
-            <h2 className='text-lg md:text-xl font-bold'>{movie?.title}</h2>
-            <span className='text-gray-600'>Price: {movie?.price} $</span>
-            <img
-              src={movie?.thumbnail}
-              alt={movie?.title}
-              className='w-full h-40 object-cover mb-2'
-            />
-            <div className='flex flex-col md:flex-row md:justify-between'>
-              <button
-                className='bg-blue-500 text-white px-4 py-2 rounded-md mb-2 md:mb-0 md:mr-2'
-                onClick={() => openUpdateModalHandler(movie.id, movie.title)}
-              >
-                Update
-              </button>
-              <button
-                className='bg-red-500 text-white px-4 py-2 rounded-md'
-                onClick={() => openDeleteModalHandler(movie.id, movie.title)}
-              >
-                Delete
-              </button>
-            </div>
-            <Link
-              to={`/details/${movie.id}`}
-              className='text-blue-500 hover:underline mt-2 self-center'
-            >
-              Details
-            </Link>
-          </div>
-        ))}
+        <ProductCard data={movies} setSelectedMovie={setSelectedMovie} />
       </div>
     </div>
   );
