@@ -2,9 +2,13 @@ import { useDispatch } from "react-redux";
 import { closeUpdateModal, updateProduct } from "../utilities/movieSlice";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-const UpdateModal = ({ movieId, movieTitle }) => {
-  const dispatch = useDispatch();
+import toast from "react-hot-toast";
 
+const UpdateModal = ({ movieId, movieTitle, moviePrice, movieThumbnail }) => {
+  const dispatch = useDispatch();
+  const isWhitespace = (value) => {
+    return /^\s*$/.test(value);
+  };
   const {
     register,
     handleSubmit,
@@ -20,14 +24,22 @@ const UpdateModal = ({ movieId, movieTitle }) => {
 
   const onSubmit = (data, event) => {
     event.preventDefault();
+    if (
+      isWhitespace(data.title) ||
+      isWhitespace(data.price) ||
+      isWhitespace(data.thumbnail)
+    ) {
+      toast.error("Whitespace is not allowed");
+      return;
+    }
     const id = movieId;
     const dataArr = { ...data, id };
     axios
       .put(`https://dummyjson.com/products/${movieId}`, data)
       .then((response) => {
         console.log(response);
+        toast.success("Product Updated");
         dispatch(updateProduct(dataArr));
-        console.log(dataArr);
       });
 
     dispatch(closeUpdateModal());
@@ -37,6 +49,7 @@ const UpdateModal = ({ movieId, movieTitle }) => {
   const closeModal = () => {
     dispatch(closeUpdateModal());
   };
+
   return (
     <div className='fixed top-100 left-100 mx-auto z-10 inset-0  flex flex-col justify-center items-center '>
       <div className='flex bg-white items-center justify-center py-4 px-4  text-center'>
@@ -49,7 +62,7 @@ const UpdateModal = ({ movieId, movieTitle }) => {
               <label className='flex flex-col gap-2'>
                 <span className='text-md self-start '>Product Title</span>
                 <input
-                  placeholder='Product Title'
+                  placeholder={movieTitle}
                   className={`border-2  border-solid  py-[8px] px-[14px] ${
                     errors["title"] ? "border-red-600" : "border-[#ddd]"
                   }`}
@@ -74,7 +87,7 @@ const UpdateModal = ({ movieId, movieTitle }) => {
               <label className='flex flex-col gap-2'>
                 <span className='text-md self-start'>Price</span>
                 <input
-                  placeholder='Price'
+                  placeholder={moviePrice}
                   className={`border-2 remove-arrow border-solid  py-[8px] px-[14px] ${
                     errors["price"] ? "border-red-600" : "border-[#ddd]"
                   }`}
@@ -100,7 +113,7 @@ const UpdateModal = ({ movieId, movieTitle }) => {
               <label className='flex flex-col gap-2'>
                 <span className='text-md self-start'>Image</span>
                 <input
-                  placeholder='Image Url'
+                  placeholder={movieThumbnail}
                   className={`border-2  border-solid  py-[8px] px-[14px] ${
                     errors["thumbnail"] ? "border-red-600" : "border-[#ddd]"
                   }`}

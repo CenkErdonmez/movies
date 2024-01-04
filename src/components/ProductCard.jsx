@@ -25,8 +25,8 @@ function ProductCard({ data, setSelectedMovie }) {
     setSelectedMovie({ id, title });
     dispatch(openDeleteModal());
   };
-  const openUpdateModalHandler = (id, title) => {
-    setSelectedMovie({ id, title });
+  const openUpdateModalHandler = (id, title, price, thumbnail) => {
+    setSelectedMovie({ id, title, price, thumbnail });
     dispatch(openUpdateModal());
   };
 
@@ -97,7 +97,14 @@ function ProductCard({ data, setSelectedMovie }) {
           <div className='flex flex-col md:flex-row md:justify-between gap-2'>
             <button
               className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-green-500 '
-              onClick={() => openUpdateModalHandler(movie.id, movie.title)}
+              onClick={() =>
+                openUpdateModalHandler(
+                  movie.id,
+                  movie.title,
+                  movie.price,
+                  movie.thumbnail
+                )
+              }
             >
               Update
             </button>

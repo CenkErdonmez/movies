@@ -2,9 +2,13 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { closeAddModal, addMovie } from "../utilities/movieSlice";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const AddMovieModal = () => {
   const dispatch = useDispatch();
+  const isWhitespace = (value) => {
+    return /^\s*$/.test(value);
+  };
   const {
     register,
     handleSubmit,
@@ -26,8 +30,18 @@ const AddMovieModal = () => {
   const onSubmit = (data) => {
     const randomId = generateRandomId();
     const movieDataWithId = { ...data, id: randomId };
+    if (
+      isWhitespace(data.title) ||
+      isWhitespace(data.price) ||
+      isWhitespace(data.thumbnail) ||
+      isWhitespace(data.description)
+    ) {
+      toast.error("Whitespace is not allowed");
+      return;
+    }
     axios.post("https://dummyjson.com/products/add", data).then((response) => {
       console.log(response);
+      toast.success("Product Added");
       dispatch(addMovie(movieDataWithId));
     });
 

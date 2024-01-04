@@ -27,7 +27,7 @@ function Movies() {
   const openAddModalHandler = () => {
     dispatch(openAddModal());
   };
-  console.log(movies);
+
   return (
     <div
       className={`flex container flex-col justify-center items-center mx-auto `}
@@ -42,6 +42,8 @@ function Movies() {
         <UpdateModal
           movieId={selectedMovie.id}
           movieTitle={selectedMovie.title}
+          moviePrice={selectedMovie.price}
+          movieThumbnail={selectedMovie.thumbnail}
         />
       )}
       {isAddModalOpen && <AddMovieModal />}

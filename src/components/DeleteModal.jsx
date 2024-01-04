@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { closeDeleteModal, deleteMovie } from "../utilities/movieSlice";
-
+import toast from "react-hot-toast";
 const DeleteModal = (props) => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -12,6 +12,7 @@ const DeleteModal = (props) => {
 
   const handleDelete = () => {
     dispatch(deleteMovie(props.movieId));
+    toast.success("Product Deleted");
     if (id !== undefined) {
       navigate("/");
     }
