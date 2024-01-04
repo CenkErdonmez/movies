@@ -38,17 +38,18 @@ const UpdateModal = ({ movieId, movieTitle }) => {
     dispatch(closeUpdateModal());
   };
   return (
-    <div className='fixed top-24 z-10 inset-0  w-full'>
-      <div className='flex bg-white items-center justify-center pt-4 px-4 pb-20 text-center'>
+    <div className='fixed top-100 left-100 mx-auto z-10 inset-0  flex flex-col justify-center items-center '>
+      <div className='flex bg-white items-center justify-center py-4 px-4  text-center'>
         <form
           className='h-full w-full py-12 flex flex-col justify-center items-center '
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className='flex flex-col '>
-            <div className='lg:col-span-2 col-span-12 w-full'>
+            <div className='lg:col-span-2 col-span-12 z-10 w-full'>
               <label className='flex flex-col gap-2'>
-                <span className='text-md'>Product Title</span>
+                <span className='text-md self-start '>Product Title</span>
                 <input
+                  placeholder='Product Title'
                   className={`border-2  border-solid  py-[8px] px-[14px] ${
                     errors["title"] ? "border-red-600" : "border-[#ddd]"
                   }`}
@@ -60,7 +61,7 @@ const UpdateModal = ({ movieId, movieTitle }) => {
                 />
               </label>
               <p
-                className={`w-full h-full text-xs pt-2 font-raleway ${
+                className={`w-full h-full text-xs pt-2  ${
                   errors["title"] ? "opacity-100 text-red-600" : "opacity-0 "
                 }`}
                 role='alert'
@@ -69,10 +70,11 @@ const UpdateModal = ({ movieId, movieTitle }) => {
               </p>
             </div>
 
-            <div className='lg:col-span-2 col-span-12 w-full font-raleway'>
+            <div className='lg:col-span-2 col-span-12 w-full z-10 '>
               <label className='flex flex-col gap-2'>
-                <span className='text-md'>Price</span>
+                <span className='text-md self-start'>Price</span>
                 <input
+                  placeholder='Price'
                   className={`border-2 remove-arrow border-solid  py-[8px] px-[14px] ${
                     errors["price"] ? "border-red-600" : "border-[#ddd]"
                   }`}
@@ -86,7 +88,7 @@ const UpdateModal = ({ movieId, movieTitle }) => {
               <p
                 className={
                   errors["price"]
-                    ? "opacity-100 text-red-600 text-xs pt-2 font-raleway"
+                    ? "opacity-100 text-red-600 text-xs pt-2 "
                     : "opacity-0"
                 }
                 role='alert'
@@ -94,10 +96,11 @@ const UpdateModal = ({ movieId, movieTitle }) => {
                 {errors["price"] ? errors["price"]?.message : "hidden"}
               </p>
             </div>
-            <div className='lg:col-span-2 col-span-12 w-full'>
+            <div className='lg:col-span-2 col-span-12 w-full z-10'>
               <label className='flex flex-col gap-2'>
-                <span className='text-md'>Image</span>
+                <span className='text-md self-start'>Image</span>
                 <input
+                  placeholder='Image Url'
                   className={`border-2  border-solid  py-[8px] px-[14px] ${
                     errors["thumbnail"] ? "border-red-600" : "border-[#ddd]"
                   }`}
@@ -109,7 +112,7 @@ const UpdateModal = ({ movieId, movieTitle }) => {
                 />
               </label>
               <p
-                className={`w-full h-full text-xs pt-2 font-raleway ${
+                className={`w-full h-full text-xs pt-2  ${
                   errors["thumbnail"]
                     ? "opacity-100 text-red-600"
                     : "opacity-0 "
@@ -120,18 +123,20 @@ const UpdateModal = ({ movieId, movieTitle }) => {
               </p>
             </div>
 
-            <button
-              onClick={closeModal}
-              className='self-end cursor-pointer bg-[#24bbc4] p-[22px] h-[40px] text-white flex justify-center items-center outline-none drop-shadow-md border-b border-blue-50 font-bold leading-4 m-2 rounded whitespace-nowrap hover:bg-[#428de8] '
-            >
-              Cancel
-            </button>
-            <button
-              className='self-end cursor-pointer bg-[#24bbc4] p-[22px] h-[40px] text-white flex justify-center items-center outline-none drop-shadow-md border-b border-blue-50 font-bold leading-4 m-2 rounded whitespace-nowrap hover:bg-[#428de8] '
-              disabled={isSubmitting}
-            >
-              Submit
-            </button>
+            <div className='flex justify-around items-center z-10'>
+              <button
+                onClick={closeModal}
+                className='self-end cursor-pointer bg-red-400 p-[22px] h-[40px] text-white flex justify-center items-center outline-none drop-shadow-md border-b border-blue-50 font-bold leading-4 m-2 rounded whitespace-nowrap hover:bg-[#428de8] '
+              >
+                Cancel
+              </button>
+              <button
+                className='self-end cursor-pointer bg-green-400 p-[22px] h-[40px] text-white flex justify-center items-center outline-none drop-shadow-md border-b border-blue-50 font-bold leading-4 m-2 rounded whitespace-nowrap hover:bg-[#428de8] '
+                disabled={isSubmitting}
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </form>
       </div>

@@ -14,6 +14,7 @@ const AddMovieModal = () => {
     defaultValues: {
       title: "",
       price: "",
+      description: "",
       thumbnail: "",
     },
   });
@@ -40,7 +41,7 @@ const AddMovieModal = () => {
   };
 
   return (
-    <div className='fixed top-24 z-10 inset-0  w-full  '>
+    <div className='fixed top-100 left-100 mx-auto z-10 inset-0  flex flex-col justify-center items-center '>
       <div className='flex items-center justify-center pt-4 px-4 pb-20 text-center' />
 
       <div className=' bg-white p-8 mx-auto my-16 rounded-lg w-96'>
@@ -64,7 +65,7 @@ const AddMovieModal = () => {
                 />
               </label>
               <p
-                className={`w-full h-full text-xs pt-2 font-raleway ${
+                className={`w-full h-full text-xs pt-2  ${
                   errors["title"] ? "opacity-100 text-red-600" : "opacity-0 "
                 }`}
                 role='alert'
@@ -73,7 +74,7 @@ const AddMovieModal = () => {
               </p>
             </div>
 
-            <div className='lg:col-span-2 col-span-12 w-full font-raleway'>
+            <div className='lg:col-span-2 col-span-12 w-full z-10 '>
               <label className='flex flex-col gap-2'>
                 <span className='text-md'>Price</span>
                 <input
@@ -84,13 +85,13 @@ const AddMovieModal = () => {
                     required: "Price is requried",
                   })}
                   aria-invalid={errors["price"] ? "true" : "false"}
-                  type='price'
+                  type='number'
                 />
               </label>
               <p
                 className={
                   errors["price"]
-                    ? "opacity-100 text-red-600 text-xs pt-2 font-raleway"
+                    ? "opacity-100 text-red-600 text-xs pt-2 "
                     : "opacity-0"
                 }
                 role='alert'
@@ -98,7 +99,35 @@ const AddMovieModal = () => {
                 {errors["price"] ? errors["price"]?.message : "hidden"}
               </p>
             </div>
-            <div className='lg:col-span-2 col-span-12 w-full'>
+            <div className='lg:col-span-2 col-span-12 w-full z-10'>
+              <label className='flex flex-col gap-2'>
+                <span className='text-md'>Product Description</span>
+                <input
+                  className={`border-2  border-solid  py-[8px] px-[14px] ${
+                    errors["description"] ? "border-red-600" : "border-[#ddd]"
+                  }`}
+                  {...register("description", {
+                    required: "Product description is requried",
+                  })}
+                  aria-invalid={errors["description"] ? "true" : "false"}
+                  type='text'
+                />
+              </label>
+              <p
+                className={`w-full h-full text-xs pt-2  ${
+                  errors["description"]
+                    ? "opacity-100 text-red-600"
+                    : "opacity-0 "
+                }`}
+                role='alert'
+              >
+                {errors["description"]
+                  ? errors["description"]?.message
+                  : "hidden"}
+              </p>
+            </div>
+
+            <div className='lg:col-span-2 col-span-12 w-full z-10'>
               <label className='flex flex-col gap-2'>
                 <span className='text-md'>Image</span>
                 <input
@@ -124,18 +153,20 @@ const AddMovieModal = () => {
               </p>
             </div>
 
-            <button
-              onClick={closeModal}
-              className='self-end cursor-pointer bg-[#24bbc4] p-[22px] h-[40px] text-white flex justify-center items-center outline-none drop-shadow-md border-b border-blue-50 font-bold leading-4 m-2 rounded whitespace-nowrap hover:bg-[#428de8] '
-            >
-              Cancel
-            </button>
-            <button
-              className='self-end cursor-pointer bg-[#24bbc4] p-[22px] h-[40px] text-white flex justify-center items-center outline-none drop-shadow-md border-b border-blue-50 font-bold leading-4 m-2 rounded whitespace-nowrap hover:bg-[#428de8] '
-              disabled={isSubmitting}
-            >
-              Submit
-            </button>
+            <div className='flex justify-around gap-2 z-10'>
+              <button
+                onClick={closeModal}
+                className='self-end cursor-pointer bg-red-400 p-[22px] h-[40px] text-white flex justify-center items-center outline-none drop-shadow-md border-b border-blue-50 font-bold leading-4 m-2 rounded whitespace-nowrap hover:bg-blue-500 '
+              >
+                Cancel
+              </button>
+              <button
+                className='self-end cursor-pointer bg-[#24bbc4] p-[22px] h-[40px] text-white flex justify-center items-center outline-none drop-shadow-md border-b border-blue-50 font-bold leading-4 m-2 rounded whitespace-nowrap hover:bg-green-500 '
+                disabled={isSubmitting}
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </form>
       </div>

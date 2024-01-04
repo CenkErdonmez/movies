@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { setMovies, openAddModal } from "../utilities/movieSlice";
 import DeleteModal from "./DeleteModal";
 import AddMovieModal from "./AddMovieModal";
@@ -28,7 +27,7 @@ function Movies() {
   const openAddModalHandler = () => {
     dispatch(openAddModal());
   };
-
+  console.log(movies);
   return (
     <div
       className={`flex container flex-col justify-center items-center mx-auto `}
@@ -45,18 +44,23 @@ function Movies() {
           movieTitle={selectedMovie.title}
         />
       )}
+      {isAddModalOpen && <AddMovieModal />}
       <div className='flex container justify-center w-full items-center gap-4'>
         <button
-          className={`${
-            isDeleteModalOpen || isUpdateModalOpen ? "hidden" : ""
-          } bg-blue-500 text-white px-4 py-2 rounded-md mb-2 md:mb-0 md:mr-2 my-6 `}
+          className={` bg-blue-500 text-white px-4 py-2 rounded-md mb-2 md:mb-0 md:mr-2 my-6 ${
+            isDeleteModalOpen || isUpdateModalOpen || isUpdateModalOpen
+              ? "hidden"
+              : ""
+          } `}
           onClick={openAddModalHandler}
         >
           Add Product
         </button>
         <button
           className={`${
-            isDeleteModalOpen || isUpdateModalOpen ? "hidden" : ""
+            isDeleteModalOpen || isUpdateModalOpen || isUpdateModalOpen
+              ? "hidden"
+              : ""
           } bg-blue-500 text-white px-4 py-2 rounded-md mb-2 md:mb-0 md:mr-2 my-6 `}
           onClick={() => {
             window.location.reload();
@@ -65,7 +69,6 @@ function Movies() {
           Reload Data
         </button>
       </div>
-      {isAddModalOpen && <AddMovieModal />}
 
       <div
         className={`grid grid-cols-12  justify-center items-center w-full gap-4 py-4 px-2 ${

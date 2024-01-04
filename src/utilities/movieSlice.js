@@ -28,7 +28,6 @@ const movieSlice = createSlice({
         (movie) => movie.id === updatedProduct.id
       );
       if (index !== -1) {
-        // Use spread operator to create a new object with updated properties
         state.movies.products[index] = {
           ...state.movies.products[index],
           title: updatedProduct.title,

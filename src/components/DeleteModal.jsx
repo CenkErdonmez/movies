@@ -19,18 +19,18 @@ const DeleteModal = (props) => {
   };
 
   return (
-    <div className='fixed top-24 z-10 inset-0  '>
-      <div className='flex flex-col bg-white  items-center justify-center pt-4 px-4 pb-20 text-center'>
+    <div className='fixed top-100 left-100 mx-auto z-10 inset-0  flex flex-col justify-center items-center gap-4'>
+      <div className='flex flex-col bg-white  items-center justify-center py-4 px-4  text-center'>
         <p className='py-4'>Delete Product: {props.movieTitle} ?</p>
         <div className='flex gap-4'>
           <button
-            className='bg-blue-500 text-white px-4 py-2 rounded-md'
+            className='bg-red-500 text-white px-4 py-2 rounded-md hover:bg-green-500'
             onClick={closeDeleteModalHandler}
           >
             Cancel
           </button>
           <button
-            className='bg-red-500 text-white px-4 py-2 rounded-md'
+            className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-green-500'
             onClick={handleDelete}
           >
             Confirm
