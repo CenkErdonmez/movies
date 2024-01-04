@@ -16,9 +16,9 @@ const UpdateModal = ({ movieId, movieTitle, moviePrice, movieThumbnail }) => {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      title: "",
-      price: "",
-      thumbnail: "",
+      title: movieTitle,
+      price: moviePrice,
+      thumbnail: movieThumbnail,
     },
   });
 
@@ -62,7 +62,7 @@ const UpdateModal = ({ movieId, movieTitle, moviePrice, movieThumbnail }) => {
               <label className='flex flex-col gap-2'>
                 <span className='text-md self-start '>Product Title</span>
                 <input
-                  placeholder={movieTitle}
+                  // placeholder={movieTitle}
                   className={`border-2  border-solid  py-[8px] px-[14px] ${
                     errors["title"] ? "border-red-600" : "border-[#ddd]"
                   }`}
@@ -87,7 +87,7 @@ const UpdateModal = ({ movieId, movieTitle, moviePrice, movieThumbnail }) => {
               <label className='flex flex-col gap-2'>
                 <span className='text-md self-start'>Price</span>
                 <input
-                  placeholder={moviePrice}
+                  // placeholder={moviePrice}
                   className={`border-2 remove-arrow border-solid  py-[8px] px-[14px] ${
                     errors["price"] ? "border-red-600" : "border-[#ddd]"
                   }`}
@@ -113,7 +113,7 @@ const UpdateModal = ({ movieId, movieTitle, moviePrice, movieThumbnail }) => {
               <label className='flex flex-col gap-2'>
                 <span className='text-md self-start'>Image</span>
                 <input
-                  placeholder={movieThumbnail}
+                  //  placeholder={movieThumbnail}
                   className={`border-2  border-solid  py-[8px] px-[14px] ${
                     errors["thumbnail"] ? "border-red-600" : "border-[#ddd]"
                   }`}
